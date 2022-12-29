@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "902fd164-8592-474e-b042-acc699376fb0",
+		"name": "Carrinho de compra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21037580"
+	},
+	"item": [
+		{
+			"name": "Listar carrinho de compra",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{pdc}}carrinhos/",
+					"host": [
+						"{{pdc}}carrinhos"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar carrinho ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{homolog}}carrinhos/OdVo6lNhRQkliE",
+					"host": [
+						"{{homolog}}carrinhos"
+					],
+					"path": [
+						"OdVo6lNhRQkliE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastrar carrinho",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"produtos\": [\r\n    {\r\n      \"idProduto\": \"TDZkH0pKVvZRnPqz\",\r\n      \"quantidade\": 2\r\n    },\r\n    {\r\n      \"idProduto\": \"iRmDEQWW7Py8s7ph\",\r\n      \"quantidade\": 1\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{qa}}carrinhos",
+					"host": [
+						"{{qa}}carrinhos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir carrinho",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar mensagem\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dev}}carrinhos/concluir-compra",
+					"host": [
+						"{{dev}}carrinhos"
+					],
+					"path": [
+						"concluir-compra"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar cancelar carrinho de compra",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar mensagem\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Não foi encontrado carrinho para esse usuário\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dev}}carrinhos/cancelar-compra",
+					"host": [
+						"{{dev}}carrinhos"
+					],
+					"path": [
+						"cancelar-compra"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
